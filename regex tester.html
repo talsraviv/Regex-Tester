@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <script src="jquery_1.6.2_min.js"></script>
+    <script>
+        $(function(){
+            $('textarea').val(localStorage.saved_input);
+            var test_strings = [
+                '2003.Warrior ',
+                ' 11580',
+                '(561) 789-1015',
+                '5617891015',
+                '561 789 1015',
+                '561.789.1015',
+                '+1(561) 789-1015',
+                '+1 561 789 1015',
+                '1 561.789-1015',
+                '561|789|1015',
+                '561 MOSS LEW',
+                '1-800-CONTACTS',
+                '1-888-MOPS-KEY',
+                '1-888-KEY-MOPS',
+                '1-888-K3Y-M2PS'
+            ];
+
+            var test_strings2 = [
+                "1515 West 2nd Ave á Vancouver, BC V6J 5C5",
+                "3221 S. Cherokee Lane | Suite 1820 | Woodstock | GA | 30188",
+                "9214 Tivoli Place, Boca Raton FL 33434777 Glades Road, Boca Raton FL 33431",
+                "9214 Tivoli Place, Boca Raton FL 33434",
+                "777 Glades Road, Boca Raton FL 33431",
+                "2 Penns Way Suite 405\n New Castle, DE 19720",
+                "2 Penns Way Suite 405 New Castle, DE 19720",
+                "99 West Hawthorne Avenue Suite 420\n Valley Stream NY 11580",
+                "99 West Hawthorne Avenue | Suite 420 | Valley Stream NY",
+                "176 B Glades Rd\n Boca Raton FL 33456",
+                "176 B Glades Rd | Boca Raton FL | 33456",
+                "2855 Kifer Road, Suite 105\n Santa Clara, CA 95051",
+                "3711 Market St. Suite 800\n Philadelphia, PA 19104",
+                "5185 Macarthur Blvd, NW #640\n Washington, DC 20016",
+                "2100 Elm Street S.E.\n Minneapolis MN 55414",
+                "215 Second Street Suite 300\n San Francisco, CA 94105",
+                "113 Griggs Road\n Boston, MA 02446",
+                "PO Box 591525\n San Francisco, CA 94159",
+                "776 University Ave\n palo alto, CA 94301",
+                "P.O Box 10005\n Palo Alto CA 94303",
+                "3960 Howard Hughes Pkwy\n 5th Floor\n Las Vegas, NV 89169",
+                "116 West Hastings Suite #200\nLas Vegas, NV 89169",
+                "816 Bancroft Way\nBerkeley, CA 94710",
+                "5 Technology Park Drive\n Westford, MA 01886",
+                "8601 Adelphi Road\nCollege Park, MD\n 20740-6001",
+                "One Johnson & Johnson Plaza\n New Brunswick, New Jersey 08933",
+                "PO Box 655961 Dallas, TX\n 75265-5961",
+                "PO Box 4668 #37895\n New York, New York\n 10163-4668",
+                "PO Box 4668 #37895\n New York, New York 10163-4668",
+                "2633 Lincoln Blvd #338\n Santa Monica, CA 90405",
+                "589 8th Ave Floor 11\n New York, NY 10018",
+                "642 Williams Hall\n 255 S. 36th Street\n Philadelphia, PA 19104-6305",
+                "19 Quaker Ridge Rd.\n Bethel CT 06801",
+                "1000 Coney Island Ave.\n Brooklyn NY 11230",
+                "2962 Dunedin Cv\n Germantown TN 38138",
+                "1500 Vance Ave\n Memphis TN 38104",
+                "915 E 7th St. Apt 6L\n Brooklyn NY 11230",
+                "One Herald Square\n Boston, MA 02118",
+                "1600 Amphitheatre Parkway\n Mountain View CA 94043",
+                "2111 McDonald's Dr.\n Oak Brook, IL 60523",
+                "1 Infinite Loop\n Cupertino, CA 95014",
+                "P.O. Box 660075\n Dallas, TX 75266-0075",
+                "6391 Sprint Parkway\n Overland Park KS 66251-4300",
+                "PO Box 11328\n St Petersburg, FL 33733",
+                "P.O. Box 920041\n Dallas, TX 75392-0041",
+                "2299 Lewes-Georgetown Hwy\n Georgetown, DE 19947",
+                "11522 Shawnee Road\n Greenwood DE 19950",
+                "144 Kings Highway\n S.W. Dover, DE 19901",
+                "33 Bridle Ridge Court\n Lewes, DE 19958",
+                "2742 Pulaski Hwy\n Newark, DE 19711",
+                "2284 Bryn Zion Road\n Smyrna, DE 19904",
+                "1500 Serpentine Road\n Suite 100 Baltimore MD 20852",
+                "580 North Dupont Highway\n Dover, DE 19901",
+                "P.O. Box 778\n Dover, DE 19903",
+                "123 Park Ave Apt 123\n New York City, NY 10002",
+                "P.O. Box 12345\n Los Angeles, CA 12304",
+                "99 West Hawthorne Avenue Suite 420, Valley Stream NY 11580",
+                "99 West Hawthorne Avenue Suite 420, Valley Stream NY",
+                "176 B Glades Rd, Boca Raton FL 33456",
+                "2855 Kifer Road, Suite 105, Santa Clara, CA 95051",
+                "3711 Market St. Suite 800, Philadelphi, PA 19104",
+                "5185 Macarthur Blvd, NW #640 Washington, DC 20016",
+                "2100 Elm Street S.E. Minneapolis MN 55414",
+                "215 Second Street Suite 300, San Francisco, CA 94105",
+                "113 Griggs Road Boston, MA 02446",
+                "PO Box 591525 San Francisco, CA 94159",
+                "776 University Ave á palo alto, CA 94301",
+                "P.O Box 10005 Palo Alto CA 94303",
+                "3960 Howard Hughes Pkwy, 5th Floor, Las Vegas, NV 89169",
+                "816 Bancroft Way, Berkeley, CA 94710",
+                "5 Technology Park Drive, Westford, MA 01886",
+                "8601 Adelphi Road College Park, MD 20740-6001",
+                "One Johnson & Johnson Plaza New Brunswick, New Jersey 08933",
+                "PO Box 655961 Dallas, TX 75265-5961",
+                "PO Box 4668 #37895 New York, New York 10163-4668",
+                "2633 Lincoln Blvd, #338 Santa Monica, CA 90405",
+                "589 8th Ave Floor 11, New York, NY 10018",
+                "642 Williams Hall 255 S. 36th Street Philadelphia, PA 19104-6305",
+                "19 Quaker Ridge Rd. Bethel CT 06801",
+                "1000 Coney Island Ave. Brooklyn NY 11230",
+                "2962 Dunedin Cv Germantown TN 38138",
+                "1500 Vance Ave Memphis TN 38104",
+                "915 E 7th St. Apt 6L Brooklyn NY 11230",
+                "One Herald Square Boston, MA 02118",
+                "1600 Amphitheatre Parkway Mountain View CA 94043",
+                "2111 McDonald's Dr., Oak Brook, IL 60523",
+                "1 Infinite Loop Cupertino, CA 95014",
+                "P.O. Box 660075 Dallas, TX 75266-0075",
+                "6391 Sprint Parkway Overland Park KS 66251-4300",
+                "PO Box 11328 St Petersburg, FL 33733",
+                "P.O. Box 920041 Dallas, TX 75392-0041",
+                "2299 Lewes-Georgetown Hwy, Georgetown, DE 19947",
+                "11522 Shawnee Road, Greenwood DE 19950",
+                "144 Kings Highway, S.W. Dover, DE 19901",
+                "33 Bridle Ridge Court, Lewes, DE 19958",
+                "2742 Pulaski Hwy Newark, DE 19711",
+                "2284 Bryn Zion Road, Smyrna, DE 19904",
+                "1500 Serpentine Road, Suite 100 Baltimore MD 20852",
+                "580 North Dupont Highway Dover, DE 19901",
+                "P.O. Box 778 Dover, DE 19903",
+                "123 Park Ave Apt 123 New York City, NY 10002",
+                "P.O. Box 12345 Los Angeles, CA 12304",
+                "32 foxes jumped over the fence",
+                "I have Eight cars for you in LA",
+                "I have 8 cars for you in LA",
+                "One car will wait for you in LA",
+                "I have 8 cars, and they are all in SF."
+            ];
+
+            $.each(test_strings, function(i, o){
+                $('<div id=' + i + '><input type="checkbox" /><span class="string">' + o + '</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="match"></span></div>').appendTo('body');
+            });
+
+            $('textarea').bind('keyup', run_regex);
+
+            function run_regex(e){ //I WOULD REFACTOR THIS TO SWITCH THE LOOPS AND BE MORE HELPFUL WHEN MULTIPLE REGEXES
+                if (true){//(e.keyCode === 13){
+                    $('input[type=checkbox]').attr('checked', false);
+                    $('.match').text('');
+                    $('.match').css('color', 'black');
+                    localStorage.saved_input = $(this).val();
+                    var array_of_regexes = $(this).val().split('\n');
+                    $.each(array_of_regexes, function(i, regex_string){
+                        if (regex_string.length){
+                            var regex = new RegExp(regex_string, 'g');
+                            $('span.string').each(function(i, string_span){
+                                if ($(this).siblings('input[type=checkbox]').attr('checked') !== 'checked'){ //if already matched forget it
+                                    var string = $(string_span).text();
+                                    var match = string.match(regex);
+                                    if (match){
+                                        $(this).siblings('.match').text(match[0]);
+                                        if (match[0] === string){
+                                            $(this).siblings('input[type=checkbox]').attr('checked', 'true');
+                                            $(this).siblings('.match').css('color', 'green');
+                                        }else{
+                                            $(this).siblings('.match').css('color', 'darkblue');
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                $('#count').text($('input[checked=checked]').length);
+            }
+        });
+    </script>
+</head>
+<body>
+
+<textarea rows="10" cols="90">
+
+</textarea>
+<div id="count"></div>
+
+</body>
+
+</html>
